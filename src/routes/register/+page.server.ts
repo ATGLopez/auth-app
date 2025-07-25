@@ -2,13 +2,15 @@ import { fail, redirect } from "@sveltejs/kit";
 import { db, userTable } from "$lib/server/schema";
 import { eq } from "drizzle-orm";
 
+import type { Actions } from "@sveltejs/kit";
+
 import {
 	generateSessionToken,
 	createSession,
 	setSessionTokenCookie
 } from "$lib/server/session";
 
-export const actions = {
+export const actions: Actions = {
 	default: async ({ request, cookies }) => {
 		const data = await request.formData();
 		const username = data.get("username")?.toString();
@@ -18,7 +20,13 @@ export const actions = {
 		if (!username || !password || !confirm_pass) {
 			return fail(400, { message: "All fields are required." });
 		}
-		if (password !== confirm_pass) {
+        if (username.length < 3) {
+			return fail(400, { error: 'Username must be at least 3 characters' });
+		}
+		if (password.length < 6) {
+			return fail(400, { error: 'Password must be at least 6 characters' });
+		}
+        if (password !== confirm_pass) {
 			return fail(400, { message: "Passwords do not match." });
 		}
 

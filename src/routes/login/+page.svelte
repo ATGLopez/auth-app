@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { enhance } from "$app/forms";
 
 </script>
 
@@ -7,7 +8,7 @@
         <h1 class="flex m-1 py-2 text-2xl font-bold border border-slate-400 border-x-0 justify-center">LOGIN</h1>
     </div>
 
-    <form class="m-4" method="POST">
+    <form class="m-4" method="POST" use:enhance>
         <div class="sm:col-span-4">
             <label for="username" class="block text-md/10 font-medium text-gray-900">Username</label>
             <div class="mt-2">
@@ -31,11 +32,8 @@
         </div>
 
         
-        <button 
-            type="submit" onclick={() => {}} 
-            class="mt-6 py-2 px-4 bg-blue-500 hover:bg-blue-400 rounded-md hover:cursor-pointer duration-200"
-        >
-            Register
+        <button type="submit" class="mt-6 py-2 px-4 bg-blue-500 hover:bg-blue-400 rounded-md hover:cursor-pointer duration-200">
+            Login
         </button>
 
     </form>
