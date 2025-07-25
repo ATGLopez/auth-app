@@ -2,13 +2,15 @@ import { fail, redirect } from "@sveltejs/kit";
 import { db, userTable } from "$lib/server/schema";
 import { eq } from "drizzle-orm";
 
+import type { Actions } from './$types';
+
 import {
 	generateSessionToken,
 	createSession,
 	setSessionTokenCookie
 } from "$lib/server/session";
 
-export const actions = {
+export const actions: Actions = {
 	default: async ({ request, cookies }) => {
 		const data = await request.formData();
 		const username = data.get("username")?.toString();

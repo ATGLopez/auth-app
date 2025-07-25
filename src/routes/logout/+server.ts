@@ -1,7 +1,7 @@
-import { redirect } from "@sveltejs/kit";
+import { redirect, type RequestEvent } from "@sveltejs/kit";
 import { deleteSessionTokenCookie } from "$lib/server/session";
 
-export const GET = async ({ cookies }) => {
-	deleteSessionTokenCookie({ cookies } as any); // clear session cookie
+export const GET = async (event: RequestEvent) => {
+	deleteSessionTokenCookie(event);
 	throw redirect(302, "/login");
 };
